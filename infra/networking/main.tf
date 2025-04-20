@@ -5,7 +5,7 @@ variable "us_availability_zone" {}
 variable "cidr_private_subnet" {}
 
 output "dev_proj_1_vpc_id" {
-  value = aws_vpc.dev_proj_1_vpc_eu_central_1.id
+  value = aws_vpc.dev_proj_1_vpc_us_west_2.id
 }
 
 output "dev_proj_1_public_subnets" {
@@ -28,7 +28,7 @@ resource "aws_vpc" "dev_proj_1_vpc_us_west_2" {
 # Setup public subnet
 resource "aws_subnet" "dev_proj_1_public_subnets" {
   count             = length(var.cidr_public_subnet)
-  vpc_id            = aws_vpc.dev_proj_1_vpc_eu_central_1.id
+  vpc_id            = aws_vpc.dev_proj_1_vpc_us_west_2.id
   cidr_block        = element(var.cidr_public_subnet, count.index)
   availability_zone = element(var.us_availability_zone, count.index)
 
