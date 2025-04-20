@@ -15,7 +15,7 @@ pipeline {
 
                 // Clone the Git repository
                 git branch: 'main',
-                    url: 'https://github.com/miguelhermar/python-mysql-db-proj-1.git'
+                    url: 'https://github.com/miguelhermar/devops-project-1.git'
 
                 sh "ls -lart" // Lists directory contents so you can verify it worked.
             }
