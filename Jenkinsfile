@@ -1,5 +1,5 @@
 pipeline {
-    agent any
+    agent any // Run this pipeline on any available Jenkins agent (could be a Docker container, EC2, Jenkins server, etc.).
 
     parameters {
             booleanParam(name: 'PLAN_TERRAFORM', defaultValue: false, description: 'Check to plan Terraform changes')
@@ -15,15 +15,16 @@ pipeline {
 
                 // Clone the Git repository
                 git branch: 'main',
-                    url: 'https://github.com/rahulwagh/devops-project-1.git'
+                    url: 'https://github.com/miguelhermar/python-mysql-db-proj-1.git'
 
-                sh "ls -lart"
+                sh "ls -lart" // Lists directory contents so you can verify it worked.
             }
         }
 
         stage('Terraform Init') {
                     steps {
-                       withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-crendentails-rwagh']]){
+                        // This securely injects AWS credentials into the shell environment so terraform can authenticate with AWS.
+                       withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-credentails-miguel']]){
                             dir('infra') {
                             sh 'echo "=================Terraform Init=================="'
                             sh 'terraform init'
@@ -35,9 +36,9 @@ pipeline {
         stage('Terraform Plan') {
             steps {
                 script {
+                    // This runs only if the checkbox PLAN_TERRAFORM is ticked when starting the build.
                     if (params.PLAN_TERRAFORM) {
-                       withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-crendentails-rwagh']]){
-                            dir('infra') {
+                       withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-credentails-miguel']]){
                                 sh 'echo "=================Terraform Plan=================="'
                                 sh 'terraform plan'
                             }
@@ -47,11 +48,13 @@ pipeline {
             }
         }
 
+        // 	Only runs if the APPLY_TERRAFORM box is ticked.
+
         stage('Terraform Apply') {
             steps {
                 script {
                     if (params.APPLY_TERRAFORM) {
-                       withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-crendentails-rwagh']]){
+                       withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-credentails-miguel']]){
                             dir('infra') {
                                 sh 'echo "=================Terraform Apply=================="'
                                 sh 'terraform apply -auto-approve'
@@ -66,7 +69,7 @@ pipeline {
             steps {
                 script {
                     if (params.DESTROY_TERRAFORM) {
-                       withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-crendentails-rwagh']]){
+                       withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-credentails-miguel']]){
                             dir('infra') {
                                 sh 'echo "=================Terraform Destroy=================="'
                                 sh 'terraform destroy -auto-approve'
