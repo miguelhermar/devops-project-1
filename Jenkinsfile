@@ -46,7 +46,6 @@ pipeline {
                     }
                 }
             }
-        }
 
         // 	Only runs if the APPLY_TERRAFORM box is ticked.
 
@@ -80,3 +79,4 @@ pipeline {
             }
         }
     }
+}
