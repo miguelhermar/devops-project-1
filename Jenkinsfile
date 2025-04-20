@@ -36,9 +36,9 @@ pipeline {
         stage('Terraform Plan') {
             steps {
                 script {
-                    // This runs only if the checkbox PLAN_TERRAFORM is ticked when starting the build.
                     if (params.PLAN_TERRAFORM) {
                        withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-credentails-miguel']]){
+                            dir('infra') {
                                 sh 'echo "=================Terraform Plan=================="'
                                 sh 'terraform plan'
                             }
@@ -46,6 +46,7 @@ pipeline {
                     }
                 }
             }
+        }
 
         // 	Only runs if the APPLY_TERRAFORM box is ticked.
 
