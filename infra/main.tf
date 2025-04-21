@@ -30,7 +30,7 @@ module "ec2" {
 
 module "lb_target_group" {
   source                   = "./load-balancer-target-group"
-  lb_target_group_name     = "dev-proj-1-lb-target-group"
+  lb_target_group_name     = "dev-proj-1-lb-target-group-us-west-2"
   lb_target_group_port     = 5000
   lb_target_group_protocol = "HTTP"
   vpc_id                   = module.networking.dev_proj_1_vpc_id
@@ -56,12 +56,12 @@ module "alb" {
   lb_target_group_attachment_port = 5000
 }
 
-module "hosted_zone" {
-  source          = "./hosted-zone"
-  domain_name     = var.domain_name
-  aws_lb_dns_name = module.alb.aws_lb_dns_name
-  aws_lb_zone_id  = module.alb.aws_lb_zone_id
-}
+# module "hosted_zone" {
+#   source          = "./hosted-zone"
+#   domain_name     = var.domain_name
+#   aws_lb_dns_name = module.alb.aws_lb_dns_name
+#   aws_lb_zone_id  = module.alb.aws_lb_zone_id
+# }
 
 # module "aws_ceritification_manager" {
 #   source         = "./certificate-manager"
