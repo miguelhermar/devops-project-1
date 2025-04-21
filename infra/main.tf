@@ -30,7 +30,7 @@ module "ec2" {
 
 module "lb_target_group" {
   source                   = "./load-balancer-target-group"
-  lb_target_group_name     = "dev-proj-1-lb-target-group-us-west-2"
+  lb_target_group_name     = "dev-proj-1-lb-target-group2"
   lb_target_group_port     = 5000
   lb_target_group_protocol = "HTTP"
   vpc_id                   = module.networking.dev_proj_1_vpc_id
