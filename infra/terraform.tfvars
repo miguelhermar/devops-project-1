@@ -14,4 +14,4 @@ ec2_ami_id     = "ami-075686beab831bb7f"
 
 ec2_user_data_install_apache = ""
 
-domain_name = "miguel-jenkins-one.com"
+domain_name = "miguel-jenkins.com"
