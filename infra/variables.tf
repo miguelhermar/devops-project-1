@@ -28,7 +28,7 @@ variable "cidr_private_subnet" {
   description = "Private Subnet CIDR values"
 }
 
-variable "us_availability_zone" {
+variable "eu_availability_zone" {
   type        = list(string)
   description = "Availability Zones"
 }
@@ -53,7 +53,7 @@ variable "domain_name" {
   description = "Name of the domain"
 }
 
-variable "aws_profile" {
-  description = "AWS profile to use for authentication"
-  type        = string
-} 
+# variable "aws_profile" {
+#   description = "AWS profile to use for authentication"
+#   type        = string
+# } 
